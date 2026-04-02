@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <link rel="shortcut icon" href="icon-favicon.png" type="image/x-icon">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evento Wow - Eventos Memoráveis</title>
+    <style>
+        :root {
+            --red: #E63946;
+            --dark-red: #A4161A;
+            --white: #ffffff;
+            --light-gray: #f8f9fa;
+            --black: #1a1a1a;
+            --gray: #6c757d;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--white);
+            color: var(--black);
+            line-height: 1.8;
+        }
+        
+        /* ===== HEADER ===== */
+        header {
+            background-color: var(--red);
+            color: var(--white);
+            padding: 20px 0;
+            box-shadow: 0 4px 12px rgba(230, 57, 70, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        header h1 {
+            text-align: center;
+            font-size: 2.5em;
+            font-weight: 800;
+            margin-bottom: 15px;
+            letter-spacing: -1px;
+        }
+        
+        nav {
+            text-align: center;
+            padding: 0 20px;
+        }
+        
+        nav a {
+            color: var(--white);
+            text-decoration: none;
+            margin: 0 20px;
+            font-weight: 600;
+            font-size: 1.05em;
+            transition: color 0.3s ease, border-bottom 0.3s ease;
+            border-bottom: 3px solid transparent;
+            padding-bottom: 5px;
+            display: inline-block;
+        }
+        
+        nav a:hover {
+            color: var(--light-gray);
+            border-bottom: 3px solid var(--white);
+        }
+        
+        /* ===== PRIMARY SECTION - HERO COM CAROUSEL ===== */
+        #primary-content {
+            position: relative;
+            height: 600px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .carousel-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+        }
+        
+        .carousel-slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+        
+        .carousel-slide.active {
+            opacity: 1;
+        }
+        
+        .carousel-overlay {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background: rgba(255, 255, 255, 0.3);
+            z-index: 2;
+        }
+        
+        #logo {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+        }
+        
+        #logo::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 350px;
+            height: 350px;
+            background-color: rgba(255, 255, 255, 0.85);
+            border-radius: 20px;
+            z-index: 0;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        #logo img {
+            position: relative;
+            z-index: 11;
+            max-width: 280px;
+            height: auto;
+            display: block;
+            border-radius: 15px;
+        }
+        
+        /* ===== MAIN SECTIONS ===== */
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0;
+        }
+        
+        section {
+            padding: 60px 40px;
+            margin: 0;
+            background-color: var(--white);
+            border-top: 1px solid var(--light-gray);
+        }
+        
+        section:nth-child(odd) {
+            background-color: var(--light-gray);
+        }
+        
+        section h1, section h2, section h3 {
+            color: var(--red);
+            margin-bottom: 25px;
+            font-weight: 700;
+        }
+        
+        section h1 {
+            font-size: 2.8em;
+        }
+        
+        section h2 {
+            font-size: 2.5em;
+        }
+        
+        section h3 {
+            font-size: 2em;
+        }
+        
+        section p {
+            font-size: 1.1em;
+            color: var(--black);
+            margin-bottom: 20px;
+            line-height: 1.9;
+        }
+        
+        ul {
+            list-style: none;
+            padding-left: 0;
+            margin: 20px 0;
+        }
+        
+        ul li {
+            margin-bottom: 15px;
+            padding-left: 35px;
+            position: relative;
+            font-size: 1.1em;
+            color: var(--black);
+            line-height: 1.7;
+        }
+        
+        ul li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--red);
+            font-weight: 800;
+            font-size: 1.3em;
+        }
+        
+        /* ===== TABLES ===== */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+            box-shadow: 0 4px 15px rgba(230, 57, 70, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            background-color: var(--white);
+        }
+        
+        table thead {
+            background-color: var(--red);
+            color: var(--white);
+        }
+        
+        table th {
+            padding: 18px;
+            text-align: left;
+            font-weight: 700;
+            font-size: 1.1em;
+            letter-spacing: 0.5px;
+        }
+        
+        table td {
+            padding: 16px 18px;
+            border-bottom: 1px solid var(--light-gray);
+            font-size: 1.05em;
+        }
+        
+        table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        table tbody tr:hover {
+            background-color: rgba(230, 57, 70, 0.05);
+        }
+        
+        table tbody tr:nth-child(even) {
+            background-color: var(--light-gray);
+        }
+        
+        /* ===== FOOTER ===== */
+        footer {
+            background-color: var(--red);
+            color: var(--white);
+            text-align: center;
+            padding: 40px 20px;
+            margin-top: 0;
+        }
+        
+        footer p {
+            margin: 12px 0;
+            font-size: 1.05em;
+        }
+        
+        footer a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+        
+        footer a:hover {
+            color: var(--light-gray);
+            text-decoration: underline;
+        }
+        
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.8em;
+            }
+            
+            nav a {
+                margin: 0 10px;
+                font-size: 0.95em;
+            }
+            
+            #primary-content {
+                height: 400px;
+            }
+            
+            #logo::before {
+                width: 280px;
+                height: 280px;
+            }
+            
+            #logo img {
+                max-width: 220px;
+            }
+            
+            section {
+                padding: 40px 20px;
+            }
+            
+            section h1 {
+                font-size: 2em;
+            }
+            
+            section h2 {
+                font-size: 1.8em;
+            }
+            
+            section h3 {
+                font-size: 1.5em;
+            }
+            
+            table {
+                font-size: 0.9em;
+            }
+            
+            table th, table td {
+                padding: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="#primary-content">Home</a>
+            <a href="#secondary-content">Sobre Nós</a>
+            <a href="#services">Serviços</a>
+            <a href="#protocols">Protocolos</a>
+        </nav>
+    </header>
+    
+    <main>
+        <section id="primary-content">
+            <div class="carousel-container">
+                <div class="carousel-slide active" style="background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWKk3vJKOlSrzhfdOWy-dMHBN8RKmN-VSB0Q&s');"></div>
+                <div class="carousel-slide" style="background-image: url('https://www.archademy.com.br/blog/wp-content/uploads/2018/03/lounge-de-eventos.jpg');"></div>
+                <div class="carousel-slide" style="background-image: url('https://alumiframe.com.br/wp-content/uploads/2025/01/calendario-de-eventos-nacionais-e-internacionais-de-arquitetura-e-iluminacao-2025.png');"></div>
+                <div class="carousel-slide" style="background-image: url('https://alumiframe.com.br/wp-content/uploads/2025/01/calendario-de-eventos-nacionais-e-internacionais-de-arquitetura-e-iluminacao-2025.png');"></div>
+                <div class="carousel-overlay"></div>
+            </div>
+            <div id="logo">
+                <img src="Icon.png" alt="Evento Wow Logo">
+            </div>
+        </section>
+        
+        <section id="secondary-content">
+            <h3>Sobre Nós</h3>
+            <p>Somos uma equipe de profissionais dedicados a criar eventos memoráveis. Com anos de experiência no setor, oferecemos soluções personalizadas para atender às necessidades de cada cliente. Desde pequenos encontros até grandes celebrações, transformamos seus sonhos em realidade.</p>
+            
+            <h2>Por que nos escolher?</h2>
+            <ul>
+                <li>Experiência comprovada em eventos de diversos tipos e tamanhos</li>
+                <li>Equipe profissional e altamente qualificada em todas as áreas</li>
+                <li>Atenção aos detalhes e personalização completa dos projetos</li>
+                <li>Orçamentos transparentes e competitivos</li>
+                <li>Atendimento ao cliente 24/7 durante o evento</li>
+            </ul>
+        </section>
+        
+        <section id="services">
+            <h3>Nossos Serviços</h3>
+            <p>Oferecemos uma ampla gama de serviços para garantir que seu evento seja um sucesso absoluto. Desde a organização completa até o apoio em todos os aspectos do planejamento, estamos aqui para ajudar.</p>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>Serviço</th>
+                        <th>Descrição</th>
+                        <th>Preço</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Organização Completa</strong></td>
+                        <td>Planejamento e execução de eventos do início ao fim com coordenação de todos os fornecedores.</td>
+                        <td><strong>R$ 10.000</strong></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Apoio ao Planejamento</strong></td>
+                        <td>Assistência profissional em todas as etapas do planejamento do evento.</td>
+                        <td><strong>R$ 5.000</strong></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Consultoria Personalizada</strong></td>
+                        <td>Orientação especializada para garantir o sucesso total do seu evento.</td>
+                        <td><strong>R$ 3.000</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <section id="protocols">
+            <h1>Protocolos de Segurança</h1>
+            <p>Garantimos a segurança e o bem-estar de todos os participantes seguindo rigorosos protocolos de saúde e segurança. Nossa equipe está comprometida em criar um ambiente seguro para que todos possam desfrutar do evento com tranquilidade.</p>
+            
+            <h2>Nossas Medidas</h2>
+            <ul>
+                <li>Protocolos de saúde e segurança conforme legislação vigente</li>
+                <li>Procedimentos de emergência bem definidos e testados regularmente</li>
+                <li>Equipe treinada em primeiros socorros e atendimento profissional</li>
+                <li>Sistemas de segurança e monitoramento durante todo o evento</li>
+                <li>Parcerias com empresas especializadas em segurança corporativa</li>
+                <li>Seguros e coberturas adequadas para todos os tipos de eventos</li>
+            </ul>
+        </section>
+    </main>
+    
+    <footer>
+        <p><strong>&copy; 2024 Evento Wow. Todos os direitos reservados.</strong></p>
+        <p>📧 <a href="mailto:contato@eventowow.com">contato@eventowow.com</a> | 📱 <a href="tel:+551140041234">(11) 4004-1234</a></p>
+        <p>São Paulo, SP - Brasil</p>
+    </footer>
+    
+    <script>
+        // Carousel de imagens automático
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.carousel-slide');
+        const totalSlides = slides.length;
+        
+        function nextSlide() {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (currentSlide + 1) % totalSlides;
+            slides[currentSlide].classList.add('active');
+        }
+        
+        // Mudar imagem a cada 5 segundos
+        setInterval(nextSlide, 5000);
+    </script>
+</body>
+</html>
